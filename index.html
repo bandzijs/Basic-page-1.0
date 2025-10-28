@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Horizon | Modern Hero Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+    <custom-navbar></custom-navbar>
+    
+    <main id="vanta-bg" class="relative min-h-[90vh] flex items-center justify-center">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30 dark:via-black/30 dark:to-black/50"></div>
+        
+        <div class="container mx-auto px-4 z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 animate-fadeIn">
+                    Elevate Your Digital Presence
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto animate-fadeIn delay-100">
+                    Crafting immersive experiences that blend design and technology seamlessly.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fadeIn delay-200">
+                    <a href="#" class="px-8 py-4 bg-white text-indigo-600 rounded-full font-semibold hover:bg-opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        Get Started
+                    </a>
+                    <a href="#" class="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:bg-opacity-10 transition-all transform hover:scale-105">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+            <a href="#features" class="text-white">
+                <i data-feather="chevron-down" class="w-10 h-10"></i>
+            </a>
+        </div>
+    </main>
+
+    <section id="features" class="py-20 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">
+                Why Choose Us?
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl transition-all hover:shadow-xl hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mb-6">
+                        <i data-feather="zap" class="text-indigo-600 dark:text-indigo-400 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Lightning Fast</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Optimized performance that keeps your users engaged and coming back.</p>
+                </div>
+                
+                <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl transition-all hover:shadow-xl hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-pink-100 dark:bg-pink-900 rounded-full flex items-center justify-center mb-6">
+                        <i data-feather="heart" class="text-pink-600 dark:text-pink-400 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">User Focused</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Designs that prioritize your users' needs and create meaningful interactions.</p>
+                </div>
+                
+                <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl transition-all hover:shadow-xl hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-teal-100 dark:bg-teal-900 rounded-full flex items-center justify-center mb-6">
+                        <i data-feather="code" class="text-teal-600 dark:text-teal-400 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Future Proof</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Built with the latest technologies that stand the test of time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+        
+        // Vanta.js waves background
+        VANTA.WAVES({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x1e3a8a,
+            shininess: 35.00,
+            waveHeight: 15.00,
+            waveSpeed: 0.75,
+            zoom: 0.8
+        });
+
+        // Dark mode toggle
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+    </script>
+</body>
+</html>
