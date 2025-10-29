@@ -29,6 +29,7 @@ jobs:
           mkdir -p site
           cp -v index.html site/
           if [ -f 404.html ]; then cp -v 404.html site/; fi
+          if [ -f CNAME ]; then cp -v CNAME site/; fi
           if [ -f style.css ]; then cp -v style.css site/; fi
           mkdir -p site/dist
           cp -vr dist/* site/dist/
