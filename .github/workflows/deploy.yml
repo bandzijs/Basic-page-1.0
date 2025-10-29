@@ -34,13 +34,19 @@ jobs:
 
       - name: Prepare static output
         run: |
-          touch .nojekyll
-        # Index and assets are already at repo root; build emits to dist/
+          set -e
+          mkdir -p site
+          cp -v index.html site/
+          if [ -f 404.html ]; then cp -v 404.html site/; fi
+          if [ -f style.css ]; then cp -v style.css site/; fi
+          mkdir -p site/dist
+          cp -vr dist/* site/dist/
+          touch site/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: site
 
   deploy:
     needs: build
