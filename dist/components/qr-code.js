@@ -3,20 +3,26 @@ class QRCodeComponent extends HTMLElement {
         super();
         this.qrCodeElement = null;
         this.url = '';
+        this.customImage = '';
+        this.data = '';
     }
 
     static get observedAttributes() {
-        return ['url', 'size'];
+        return ['url', 'data', 'image', 'size', 'title'];
     }
 
     connectedCallback() {
-        this.url = this.getAttribute('url') || window.location.href;
+        this.url = this.getAttribute('url') || '';
+        this.customImage = this.getAttribute('image') || '';
+        this.data = this.getAttribute('data') || '';
         this.render();
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'url' && newValue !== oldValue) {
-            this.url = newValue;
+        if (newValue !== oldValue) {
+            if (name === 'url') this.url = newValue;
+            if (name === 'image') this.customImage = newValue;
+            if (name === 'data') this.data = newValue;
             this.render();
         }
     }
@@ -80,7 +86,7 @@ class QRCodeComponent extends HTMLElement {
                 }
             </style>
             <div class="qr-container">
-                <h3 class="qr-title">Scan to Visit</h3>
+                <h3 class="qr-title" id="qr-title">Scan to Visit</h3>
                 <div class="qr-code" id="qr-code">
                     <div class="qr-placeholder">QR Code</div>
                 </div>
@@ -88,53 +94,56 @@ class QRCodeComponent extends HTMLElement {
         `;
 
         this.qrCodeElement = this.querySelector('#qr-code');
+        const titleElement = this.querySelector('#qr-title');
+        
+        // Update title if provided
+        const customTitle = this.getAttribute('title');
+        if (titleElement && customTitle) {
+            titleElement.textContent = customTitle;
+        }
+        
         this.generateQRCode();
     }
 
     generateQRCode() {
         if (!this.qrCodeElement) return;
 
-        // Create QR code using a simple method
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        if (!ctx) return;
-
-        canvas.width = 120;
-        canvas.height = 120;
-
-        // Simple QR-like pattern
-        ctx.fillStyle = '#000';
-        ctx.fillRect(0, 0, 120, 120);
-        
-        // Create a simple pattern that looks like a QR code
-        const cellSize = 4;
-        const cells = 30;
-        
-        for (let i = 0; i < cells; i++) {
-            for (let j = 0; j < cells; j++) {
-                if ((i + j) % 3 === 0 || (i * j) % 7 === 0) {
-                    ctx.fillStyle = '#fff';
-                } else {
-                    ctx.fillStyle = '#000';
-                }
-                ctx.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
-            }
+        // Option 1: Use custom image if provided
+        if (this.customImage) {
+            const img = document.createElement('img');
+            img.src = this.customImage;
+            img.alt = 'QR Code';
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'contain';
+            img.style.borderRadius = '8px';
+            this.qrCodeElement.innerHTML = '';
+            this.qrCodeElement.appendChild(img);
+            return;
         }
 
-        // Add corner markers
-        ctx.fillStyle = '#000';
-        ctx.fillRect(0, 0, 20, 20);
-        ctx.fillRect(100, 0, 20, 20);
-        ctx.fillRect(0, 100, 20, 20);
-        
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(4, 4, 12, 12);
-        ctx.fillRect(104, 4, 12, 12);
-        ctx.fillRect(4, 104, 12, 12);
+        // Option 2: Use API to generate QR code from URL/data
+        const qrData = this.data || this.url || window.location.href;
+        this.generateQRCodeFromAPI(qrData);
+    }
 
+    generateQRCodeFromAPI(data) {
+        if (!this.qrCodeElement) return;
+
+        // Use QR Server API to generate real QR code
+        const qrSize = this.getAttribute('size') || '120';
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(data)}`;
+        
+        const img = document.createElement('img');
+        img.src = qrUrl;
+        img.alt = 'QR Code';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
+        img.style.borderRadius = '8px';
+        
         this.qrCodeElement.innerHTML = '';
-        this.qrCodeElement.appendChild(canvas);
+        this.qrCodeElement.appendChild(img);
     }
 }
 
