@@ -152,17 +152,6 @@ class CustomFooter extends HTMLElement {
                 </div>
             </footer>
         `;
-
-        if (window.feather && typeof window.feather.replace === 'function') {
-            window.feather.replace({
-                class: '',
-                width: 20,
-                height: 20
-            });
-        }
     }
 }
-
 customElements.define('custom-footer', CustomFooter);
-
-

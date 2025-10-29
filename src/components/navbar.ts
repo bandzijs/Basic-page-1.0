@@ -130,43 +130,6 @@ class CustomNavbar extends HTMLElement {
                 </ul>
             </nav>
         `;
-
-        // Replace feather icons within the shadow DOM
-        if (window.feather && typeof window.feather.replace === 'function') {
-            window.feather.replace({
-                class: '',
-                width: 24,
-                height: 24
-            });
-        }
-
-        // Wire up theme toggle from inside the component
-        const btn = this.shadowRoot.getElementById('theme-toggle');
-        if (btn) {
-            btn.addEventListener('click', () => {
-                const html = document.documentElement;
-                html.classList.toggle('dark');
-                try {
-                    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-                } catch (_) {}
-            });
-        }
-
-        // Add scrolled state based on window scroll
-        const nav = this.shadowRoot.querySelector('nav');
-        const update = () => {
-            if (!nav) return;
-            if (window.scrollY > 10) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        };
-        update();
-        window.addEventListener('scroll', update, { passive: true });
     }
 }
-
 customElements.define('custom-navbar', CustomNavbar);
-
-
