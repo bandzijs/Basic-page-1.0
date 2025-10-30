@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <custom-navbar></custom-navbar>
+
+    <main class="pt-24">
+        <!-- Filters top bar -->
+        <section class="px-4">
+            <div class="max-w-7xl mx-auto">
+                <search-bar></search-bar>
+            </div>
+        </section>
+
+        <!-- Results + Map -->
+        <section class="px-4 py-4">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <!-- List -->
+                <div class="h-[calc(100vh-200px)] overflow-y-auto pr-1" id="list-container">
+                </div>
+                <!-- Map -->
+                <div class="h-[calc(100vh-200px)] rounded-xl overflow-hidden ring-1 ring-black/5" id="map-container">
+                    <map-view></map-view>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <!-- Components (compiled JS) -->
+    <script src="dist/components/navbar.js"></script>
+    <script src="dist/components/footer.js"></script>
+    <script src="dist/search/state.js"></script>
+    <script src="dist/search/data.js"></script>
+    <script src="dist/search/search-bar.js"></script>
+    <script src="dist/search/property-card.js"></script>
+    <script src="dist/search/map-view.js"></script>
+    <script>
+        // Render listing cards from sample data
+        (function() {
+            const container = document.getElementById('list-container');
+            if (!container || !window.SampleListings) return;
+            window.SampleListings.forEach((l) => {
+                const el = document.createElement('property-card');
+                el.setAttribute('data-id', String(l.id));
+                el.setAttribute('title', l.title);
+                el.setAttribute('image', l.imageUrl);
+                el.setAttribute('pricePerNight', String(l.pricePerNight));
+                el.setAttribute('total', String(l.total));
+                el.setAttribute('dates', l.dates);
+                el.setAttribute('speed', l.internetMbps + ' Mbps');
+                el.setAttribute('tags', (l.tags || []).join(','));
+                container.appendChild(el);
+            });
+        })();
+    </script>
+</body>
+</html>
+
+
