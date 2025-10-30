@@ -114,6 +114,11 @@ class QRCodeComponent extends HTMLElement {
             img.style.height = '100%';
             img.style.objectFit = 'contain';
             img.style.borderRadius = '8px';
+            // Fallback: if image fails, generate a QR from URL/data
+            img.onerror = () => {
+                const fallbackData = this.data || this.url || window.location.href;
+                this.generateQRCodeFromAPI(fallbackData);
+            };
             this.qrCodeElement.innerHTML = '';
             this.qrCodeElement.appendChild(img);
             return;
