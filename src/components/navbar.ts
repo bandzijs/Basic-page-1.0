@@ -107,8 +107,20 @@ class CustomNavbar extends HTMLElement {
                     background: rgba(255, 255, 255, 0.1);
                 }
                 @media (max-width: 768px) {
+                    nav {
+                        padding: 0.75rem 1rem;
+                    }
+                    .logo {
+                        font-size: 1.25rem;
+                    }
                     ul {
-                        gap: 1rem;
+                        gap: 0.75rem;
+                        flex-wrap: wrap;
+                        justify-content: flex-end;
+                        row-gap: 0.5rem;
+                    }
+                    a {
+                        font-size: 0.9rem;
                     }
                 }
             </style>
