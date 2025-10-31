@@ -115,7 +115,7 @@ class CustomNavbar extends HTMLElement {
             <nav>
                 <a href="/" class="logo">
                     <i data-feather="compass"></i>
-                    <span>Horizon</span>
+                    <span>NoDepo</span>
                 </a>
                 <ul>
                     <li><a href="#features">Features</a></li>

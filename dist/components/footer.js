@@ -105,7 +105,7 @@ class CustomFooter extends HTMLElement {
                         <div class="footer-about">
                             <div class="footer-logo">
                                 <i data-feather="compass"></i>
-                                <span>Horizon</span>
+                                <span>NoDepo</span>
                             </div>
                             <p class="footer-description">
                                 Creating digital experiences that inspire and engage.
@@ -141,7 +141,7 @@ class CustomFooter extends HTMLElement {
                     </div>
                     <div class="footer-bottom">
                         <div class="copyright">
-                            &copy; ${new Date().getFullYear()} Horizon. All rights reserved.
+                            &copy; ${new Date().getFullYear()} NoDepo. All rights reserved.
                         </div>
                         <div class="social-links">
                             <a href="#"><i data-feather="twitter"></i></a>
