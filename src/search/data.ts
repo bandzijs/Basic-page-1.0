@@ -52,6 +52,46 @@ export const sampleListings: Listing[] = [
 
 export type MarkerDatum = { id: number; lat: number; lng: number; price: number };
 
-export const sampleMarkers: MarkerDatum[] = sampleListings.map(l => ({ id: l.id, lat: l.lat, lng: l.lng, price: l.pricePerNight }));
+export type PropertyCardAttributes = {
+    id: number;
+    title: string;
+    image: string;
+    pricePerNight: number;
+    total: number;
+    dates: string;
+    internetMbps: number;
+    tags: string[];
+};
 
+export const sampleMarkers: MarkerDatum[] = sampleListings.map(listingToMarker);
+
+export function listingToMarker(listing: Listing): MarkerDatum {
+    return {
+        id: listing.id,
+        lat: listing.lat,
+        lng: listing.lng,
+        price: listing.pricePerNight
+    };
+}
+
+export function listingToCardAttributes(listing: Listing): PropertyCardAttributes {
+    return {
+        id: listing.id,
+        title: listing.title,
+        image: listing.imageUrl,
+        pricePerNight: listing.pricePerNight,
+        total: listing.total,
+        dates: listing.dates,
+        internetMbps: listing.internetMbps,
+        tags: listing.tags ?? []
+    };
+}
+
+export function getSampleListings(): Listing[] {
+    return sampleListings.map(l => ({ ...l }));
+}
+
+export function getSampleMarkers(): MarkerDatum[] {
+    return sampleMarkers.map(m => ({ ...m }));
+}
 

@@ -1,9 +1,9 @@
 import { hoverStore } from './state';
 
 class PropertyCard extends HTMLElement {
-    private id: number = 0;
+    private listingId: number = 0;
     connectedCallback() {
-        this.id = Number(this.getAttribute('data-id') || '0');
+        this.listingId = Number(this.getAttribute('data-id') || '0');
         const title = this.getAttribute('title') || '';
         const image = this.getAttribute('image') || '';
         const pricePerNight = this.getAttribute('pricePerNight') || '';
@@ -13,7 +13,7 @@ class PropertyCard extends HTMLElement {
         const tags = (this.getAttribute('tags') || '').split(',').filter(Boolean);
 
         this.innerHTML = `
-            <article class="bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden hover:shadow-md transition-shadow cursor-pointer" data-id="${this.id}">
+            <article class="bg-white rounded-xl shadow-sm ring-1 ring-black/5 overflow-hidden hover:shadow-md transition-shadow cursor-pointer" data-id="${this.listingId}">
                 <div class="aspect-[4/3] bg-gray-100">
                     <img src="${image}" alt="${title}" class="w-full h-full object-cover" />
                 </div>
@@ -35,7 +35,7 @@ class PropertyCard extends HTMLElement {
             </article>
         `;
 
-        this.addEventListener('mouseenter', () => hoverStore.setHover(this.id));
+        this.addEventListener('mouseenter', () => hoverStore.setHover(this.listingId));
         this.addEventListener('mouseleave', () => hoverStore.setHover(null));
     }
 }

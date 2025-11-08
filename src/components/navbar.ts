@@ -1,7 +1,9 @@
 class CustomNavbar extends HTMLElement {
     connectedCallback() {
         this.attachShadow({ mode: 'open' });
-        this.shadowRoot.innerHTML = `
+        const shadowRoot = this.shadowRoot;
+        if (!shadowRoot) return;
+        shadowRoot.innerHTML = `
             <style>
                 nav {
                     background: rgba(0, 0, 0, 0.2);

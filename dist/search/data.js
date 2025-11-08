@@ -36,7 +36,4 @@ window.SampleListings = [
         lng: 21.0300
     }
 ];
-window.SampleMarkers = window.SampleListings.map(l => ({ id: l.id, lat: l.lat, lng: l.lng, price: l.pricePerNight }));
-export {};
-
-
+window.SampleMarkers = window.SampleListings.map(function (l) { return ({ id: l.id, lat: l.lat, lng: l.lng, price: l.pricePerNight }); });

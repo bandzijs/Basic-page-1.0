@@ -13,21 +13,28 @@
 
     <main class="pt-24">
         <!-- Filters top bar -->
-        <section class="px-4">
+        <section class="px-4" aria-labelledby="search-filters-heading">
             <div class="max-w-7xl mx-auto">
+                <h1 id="search-filters-heading" class="sr-only">Search filters</h1>
                 <search-bar></search-bar>
             </div>
         </section>
 
         <!-- Results + Map -->
-        <section class="px-4 py-4">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <!-- List -->
-                <div class="h-[calc(100vh-200px)] overflow-y-auto pr-1" id="list-container">
+        <section class="px-4 py-4" aria-labelledby="search-results-heading">
+            <div class="max-w-7xl mx-auto space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 id="search-results-heading" class="text-lg font-semibold text-gray-900">Places to stay in Warsaw</h2>
+                    <p class="text-sm text-gray-600">Mock data for demo purposes</p>
                 </div>
-                <!-- Map -->
-                <div class="h-[calc(100vh-200px)] rounded-xl overflow-hidden ring-1 ring-black/5" id="map-container">
-                    <map-view></map-view>
+                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                    <!-- List -->
+                    <div class="h-[calc(100vh-200px)] overflow-y-auto pr-1" id="list-container" aria-live="polite">
+                    </div>
+                    <!-- Map -->
+                    <div class="h-[calc(100vh-200px)] rounded-xl overflow-hidden ring-1 ring-black/5" id="map-container">
+                        <map-view></map-view>
+                    </div>
                 </div>
             </div>
         </section>
@@ -43,25 +50,7 @@
     <script src="dist/search/search-bar.js"></script>
     <script src="dist/search/property-card.js"></script>
     <script src="dist/search/map-view.js"></script>
-    <script>
-        // Render listing cards from sample data
-        (function() {
-            const container = document.getElementById('list-container');
-            if (!container || !window.SampleListings) return;
-            window.SampleListings.forEach((l) => {
-                const el = document.createElement('property-card');
-                el.setAttribute('data-id', String(l.id));
-                el.setAttribute('title', l.title);
-                el.setAttribute('image', l.imageUrl);
-                el.setAttribute('pricePerNight', String(l.pricePerNight));
-                el.setAttribute('total', String(l.total));
-                el.setAttribute('dates', l.dates);
-                el.setAttribute('speed', l.internetMbps + ' Mbps');
-                el.setAttribute('tags', (l.tags || []).join(','));
-                container.appendChild(el);
-            });
-        })();
-    </script>
+    <script src="dist/search/page.js"></script>
 </body>
 </html>
 

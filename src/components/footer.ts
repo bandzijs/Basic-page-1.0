@@ -1,7 +1,9 @@
 class CustomFooter extends HTMLElement {
     connectedCallback() {
         this.attachShadow({ mode: 'open' });
-        this.shadowRoot.innerHTML = `
+        const shadowRoot = this.shadowRoot;
+        if (!shadowRoot) return;
+        shadowRoot.innerHTML = `
             <style>
                 footer {
                     background: #1a202c;

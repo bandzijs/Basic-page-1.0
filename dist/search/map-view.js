@@ -32,6 +32,3 @@ class MapView extends HTMLElement {
     }
 }
 customElements.define('map-view', MapView);
-export {};
-
-
