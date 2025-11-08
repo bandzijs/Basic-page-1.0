@@ -17,6 +17,3 @@ class HoverStore {
     }
 }
 window.hoverStore = new HoverStore();
-export {};
-
-
